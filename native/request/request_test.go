@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/bsm/openrtb/v3"
+	"github.com/onedigitalad/openrtb/v3"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
