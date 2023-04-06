@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/onedigitalad/openrtb/v3"
+	. "github.com/onedigitalad/openrtb/v3/native/request"
 )
 
 func TestRequest(t *testing.T) {
