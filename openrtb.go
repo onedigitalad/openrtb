@@ -688,6 +688,7 @@ const (
 	DeviceTypeTablet    DeviceType = 5
 	DeviceTypeConnected DeviceType = 6
 	DeviceTypeSetTopBox DeviceType = 7
+	DeviceTypeOOH       DeviceType = 8
 )
 
 // ConnType as defined in section 5.22.
@@ -832,8 +833,33 @@ type Regulations struct {
 
 // Format object represents an allowed size (i.e., height and width combination) for a banner impression.
 // These are typically used in an array for an impression where multiple sizes are permitted.
+// It is recommended that either the w/h pair or the wratio/hratio/wmin set (i.e., for Flex Ads) be specified.
 type Format struct {
-	Width  int             `json:"w,omitempty"` // Width in device independent pixels (DIPS).
-	Height int             `json:"h,omitempty"` //Height in device independent pixels (DIPS).
-	Ext    json.RawMessage `json:"ext,omitempty"`
+	Width       int             `json:"w,omitempty"`       // Width in device independent pixels (DIPS).
+	Height      int             `json:"h,omitempty"`       // Height in device independent pixels (DIPS).
+	WidthRatio  int             `json:"wratio,omitempty"`  // Relative width when expressing size as a ratio.
+	HeightRatio int             `json:"hration,omitempty"` // Relative height when expressing size as a ratio.
+	WidthMin    int             `json:"wmin,omitempty"`    // The minimum width in device independent pixels (DIPS) at which the ad will be displayed the size is expressed as a ratio.
+	Ext         json.RawMessage `json:"ext,omitempty"`
 }
+
+// PodSequence identifies the pod sequence field, for use in video content streams with one or more ad pods as defined in Adcom1.0
+type PodSequence int
+
+// PodSequence options as defined in Adcom1.0
+const (
+	PodSeqLast  PodSequence = -1 // Last pod in the content stream.
+	PodSeqAny   PodSequence = 0  // Any pod in the content stream.
+	PodSeqFirst PodSequence = 1  // First pod in the content stream.
+)
+
+// SlotPositionInPod identifies the slot position in pod field, for use in video ad pods as defined in Adcom1.0
+type SlotPositionInPod int
+
+// SlotPositionInPod options as defined in Adcom1.0
+const (
+	SlotPosLast        SlotPositionInPod = -1 // Last ad in the pod.
+	SlotPosAny         SlotPositionInPod = 0  // Any ad in the pod.
+	SlotPosFirst       SlotPositionInPod = 1  // First ad in the pod.
+	SlotPosFirstOrLast SlotPositionInPod = 2  // First or Last ad in the pod.
+)
