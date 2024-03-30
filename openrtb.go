@@ -831,8 +831,10 @@ type Segment struct {
 // coppa flag signals whether or not the request falls under the United States Federal Trade Commission's
 // regulations for the United States Children's Online Privacy Protection Act ("COPPA").
 type Regulations struct {
-	COPPA int             `json:"coppa,omitempty"` // Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes.
-	Ext   json.RawMessage `json:"ext,omitempty"`
+	COPPA     int             `json:"coppa,omitempty"`      // Flag indicating if this request is subject to the COPPA regulations established by the USA FTC, where 0 = no, 1 = yes.
+	GDPR      int             `json:"gdpr,omitempty"`       // Flag that indicates whether or not the request is subject to GDPR regulations 0 = No, 1 = Yes, omission indicates Unknown.
+	USPrivacy string          `json:"us_privacy,omitempty"` // Communicates signals regarding consumer privacy under US privacy regulation.
+	Ext       json.RawMessage `json:"ext,omitempty"`
 }
 
 // Format object represents an allowed size (i.e., height and width combination) for a banner impression.
@@ -892,3 +894,22 @@ const (
 	CategoryTaxonomyIABContent21  CategoryTaxonomy = 5 // 5	IAB Content Category Taxonomy 2.1.
 	CategoryTaxonomyIABContent22  CategoryTaxonomy = 6 // 6	IAB Content Category Taxonomy 2.2
 )
+
+// VideoPlcmt represents the the various types of video placements in accordance with updated IAB Digital Video Guidelines.
+type VideoPlcmt int
+
+// Types of video placements derived largely from the IAB Digital Video Guidelines.
+const (
+	VideoPlcmtInstream            VideoPlcmt = 1
+	VideoPlcmtAccompanyingContent VideoPlcmt = 2
+	VideoPlcmtInterstitial        VideoPlcmt = 3
+	VideoPlcmtNoContent           VideoPlcmt = 4
+)
+
+// ChannelEntity describes the network or channel an ad will be displayed on. (Reffer Section 3.2.23 and 3.2.24 OpenRTB_2.6)
+type ChannelEntity struct {
+	ID     string          `json:"id,omitempty"`
+	Name   string          `json:"name,omitempty"`
+	Domain string          `json:"domain,omitempty"`
+	Ext    json.RawMessage `json:"ext,omitempty"`
+}
